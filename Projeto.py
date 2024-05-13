@@ -37,9 +37,9 @@ def menu():
         elif op == "5":
             pass
         elif op == "6":
-            pass
+            favoritos()
         elif op == "7":
-            print(receita_aleatoria())
+            receita_aleatoria()
         elif op == "8":
             pass
         else:
@@ -58,7 +58,55 @@ def cadastro():
 
 
 def favoritos():
-    pass
+    favoritas = []
+
+    with open('dados.txt', 'r', encoding='utf-8') as arquivo:
+        linhas = arquivo.readlines()
+        receitas = []
+        nova_receita = False
+        for linha in linhas:
+            if nova_receita:
+                ingredientes = linha.strip().split(', ')
+                nova_receita = False
+            elif ' - ' in linha:
+                receitas.append(linha.split(' - ', 1))
+                nova_receita = True
+
+    while True:
+        print("Receitas Disponíveis:")
+        for i, receita in enumerate(receitas, 1):
+            print(f"[{i}] - {receita[1].strip()}")
+
+        print("\nMenu de Favoritos:")
+        print("[1] - Adicionar Receita aos Favoritos")
+        print("[2] - Exibir Favoritos")
+        print("[0] - Voltar ao Menu Principal")
+        opcao = input("=> ")
+
+        if opcao == "0":
+            break
+        elif opcao == "1":
+            print("Digite o número da receita que deseja adicionar aos favoritos:")
+            num_receita = input("=> ")
+            try:
+                num_receita = int(num_receita)
+                if 1 <= num_receita <= len(receitas):
+                    nome_receita = receitas[num_receita - 1][1].strip()
+                    favoritas.append(nome_receita)
+                    print(f"Receita '{nome_receita}' adicionada aos favoritos.")
+                else:
+                    print("Número de receita inválido. Por favor, escolha um número válido.")
+            except ValueError:
+                print("Por favor, digite um número válido.")
+        elif opcao == "2":
+            if not favoritas:
+                print("Nenhuma receita favorita adicionada ainda.")
+            else:
+                print("Receitas Favoritas:")
+                for receita in favoritas:
+                    print("-", receita)
+        else:
+            print("Opção Inválida. Por favor, escolha uma opção válida.")
 
 def receita_aleatoria():
     with open('dados.txt', 'r', encoding='utf-8') as arquivo:
@@ -86,9 +134,6 @@ def receita_aleatoria():
                 break
             modo_preparo += linha.strip() + '\n'
         print("Receita:", receita_escolhida[1].strip())
-        for ingrediente in ingredientes:
-            print()
-            print("- " + ingrediente)
         print()
         print(modo_preparo)
 
