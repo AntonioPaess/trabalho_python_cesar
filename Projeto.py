@@ -137,17 +137,7 @@ def receita_aleatoria():
         print()
         print(modo_preparo)
 
-def carregar():
-    try:
-        with open("dados.txt", "r", encoding="utf-8") as arquivo:
-            receitas = []
-            for i in arquivo:
-                dados = i.strip().split(",")
-                receita = {"nome": dados[0], "pais": dados[1], "ingredientes": dados[2].split(','), "modo_preparo": dados[3], "favorita": bool(dados[4])}
-                receitas.append(receita)
-            return receitas
-    except FileNotFoundError:
-        return receitas
+
 
 def excluir_receita(receitas):
     for i, receita in enumerate(receitas, start=1):
