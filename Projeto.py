@@ -33,7 +33,7 @@ def menu():
         elif op == "3":
             pass
         elif op == "4":
-            pass
+            excluir()
         elif op == "5":
             pass
         elif op == "6":
@@ -139,16 +139,53 @@ def receita_aleatoria():
 
 
 
-def excluir_receita(receitas):
-    for i, receita in enumerate(receitas, start=1):
-        print(f"{i}. {receita['nome']} - {receita['pais']}")
-    escolha = int(input("Escolha o número da receita para excluir: "))
-    receitas.pop(escolha - 1)
-    print(f"A receita '{escolha}' foi excluída com sucesso.")
-    with open("receitas.txt", "w", encoding="utf-8") as arquivo:
-        for receita in receitas:
-            arquivo.write(f"{receita['nome']},{receita['pais']},{','.join(receita['ingredientes'])},{receita['modo_preparo']},{receita['favorita']}\n")
+def excluir():
+    with open('dados.txt', 'r', encoding='utf-8') as arquivo:
+        linhas = arquivo.readlines()
+        receitas = []
+        nova_receita = False
+        for linha in linhas:
+            if nova_receita:
+                nova_receita = False
+            elif ' - ' in linha:
+                receitas.append(linha.split(' - ', 1))
+                nova_receita = True
+
+    while True:
+        print("Receitas Disponíveis:")
+        for i, receita in enumerate(receitas, 1):
+            print(f"[{i}] - {receita[1].strip()}")
+
+        print("\nMenu de Exclusão:")
+        print("[1] - Excluir Receita")
+        print("[0] - Voltar ao Menu Principal")
+        opcao = input("=> ")
+
+        if opcao == "0":
+            break
+        elif opcao == "1":
+            print("Digite o número da receita que deseja excluir:")
+            num_receita = input("=> ")
+            try:
+                num_receita = int(num_receita)
+                if 1 <= num_receita <= len(receitas):
+                    nome_receita = receitas[num_receita - 1][1].strip()
+                    inicio_receita = linhas.index(f"{receitas[num_receita - 1][0]} - {receitas[num_receita - 1][1]}")
+                    fim_receita = inicio_receita + 1
+                    while fim_receita < len(linhas) and linhas[fim_receita].strip():
+                        fim_receita += 1
+                    fim_receita += 1  
+                    del linhas[inicio_receita:fim_receita]
+                    with open('dados.txt', 'w', encoding='utf-8') as arquivo:
+                        arquivo.writelines(linhas)
+                    print(f"Receita '{nome_receita}' excluída com sucesso.")
+                else:
+                    print("Número de receita inválido. Por favor, escolha um número válido.")
+            except ValueError:
+                print("Por favor, digite um número válido.")
+        else:
+            print("Opção Inválida. Por favor, escolha uma opção válida.")
 
 
-carregar()
+
 menu()
