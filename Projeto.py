@@ -137,7 +137,15 @@ def receita_aleatoria():
         print()
         print(modo_preparo)
 
-
+def excluir_receita(receitas):
+    for i, receita in enumerate(receitas, start=1):
+        print(f"{i}. {receita['nome']} - {receita['pais']}")
+    escolha = int(input("Escolha o número da receita para excluir: "))
+    receitas.pop(escolha - 1)
+    print(f"A receita '{escolha}' foi excluída com sucesso.")
+    with open("receitas.txt", "w", encoding="utf-8") as arquivo:
+        for receita in receitas:
+            arquivo.write(f"{receita['nome']},{receita['pais']},{','.join(receita['ingredientes'])},{receita['modo_preparo']},{receita['favorita']}\n")
 
 
 
