@@ -134,8 +134,6 @@ def receita_aleatoria(): # Check
                 elif 'Ingredientes:' in linha:
                     ingredientes = linha.strip().replace('Ingredientes: ', '')
                     nova_receita = True
-                elif 'Modo de Preparo' in linha:
-                    modo_preparo = linha.strip().replace("Modo de Preparo: ", '')
 
             if ingredientes != "":
                 receitas.append((nome, pais_origem, ingredientes, modo_preparo))
@@ -149,8 +147,7 @@ def receita_aleatoria(): # Check
 
             print("Nome:", nome)
             print(f"País de Origem: {pais_origem}\n")
-            print(f"Ingredientes:\n{ingredientes}\n")
-            print(f"Modo de Preparo:\n{modo_preparo}")
+            print(f"Ingredientes:\n{ingredientes}")
     except FileNotFoundError:
         print("O arquivo 'dados.txt' não foi encontrado.")
     except Exception as e:
