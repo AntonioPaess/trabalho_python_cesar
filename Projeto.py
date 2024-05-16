@@ -35,7 +35,7 @@ def menu():
         elif op == "4":
             excluir()
         elif op == "5":
-            pass
+            filtrar()
         elif op == "6":
             favoritos()
         elif op == "7":
@@ -107,6 +107,7 @@ def favoritos(): # Check
                     print("-", receita)
         else:
             print("Opção Inválida. Por favor, escolha uma opção válida.")
+
 
 
 def receita_aleatoria(): # Check
@@ -202,6 +203,44 @@ def excluir(): # Falta Arrumar
             print("Opção Inválida. Por favor, escolha uma opção válida.")
 
 
+
+def filtrar(): 
+    try:
+        with open('dados.txt', 'r', encoding='utf-8') as arquivo:
+            linhas = arquivo.readlines()
+            receitas = []
+            nova_receita = None
+
+            for linha in linhas:
+                if "Nome: " in linha:
+                        if nova_receita:
+                            receitas.append(nova_receita) 
+                        nova_receita = {"Nome": linha.strip()[6:]}  
+                elif "País de Origem: " in linha:
+                    nova_receita["País de Origem"] = linha.strip()[16:] 
+
+            if nova_receita:
+                receitas.append(nova_receita)  
+
+        pais = input("Digite o país para filtrar as receitas:\n").capitalize()
+
+        receitas_filtradas = [r for r in receitas if r.get("País de Origem", "").lower() == pais.lower()]
+
+        if receitas_filtradas:
+            print(f"Receitas do país '{pais}':")
+            for receita in receitas_filtradas:
+                print(f"{receita['Nome']}")
+
+        else:
+            print(f"Não foram encontradas receitas do país '{pais}'.")
+
+    except FileNotFoundError:
+        print("O arquivo 'dados.txt' não foi encontrado.")
+    except Exception as e:
+        print("Ocorreu um erro durante a leitura do arquivo:", e)
+
+
+
 def cadastro(): # Check
     nome = input("Nome da receita: ").title()
     pais_origem = input("País de origem: ").capitalize()
@@ -222,6 +261,8 @@ def cadastro(): # Check
 
     print("\nReceita cadastrada com sucesso!\n")
 
+
+
 def visualizar_receita_por_nome(nome_busca): # Check
     try:
         with open("dados.txt", "r", encoding="utf-8") as arquivo:
@@ -239,9 +280,6 @@ def visualizar_receita_por_nome(nome_busca): # Check
             print("Nenhuma receita encontrada com esse nome.")
     except FileNotFoundError:
         print("Nenhuma receita cadastrada ainda.")
-
-
-
 
 
 
