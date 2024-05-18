@@ -31,7 +31,7 @@ def menu():
             receita = input("Digite o nome da receita que deseja visualizar:\n").capitalize()
             visualizar_receita_por_nome(receita)
         elif op == "3":
-            pass
+            atualizar()
         elif op == "4":
             excluir()
         elif op == "5":
@@ -154,7 +154,52 @@ def receita_aleatoria(): # Check
     except Exception as e:
         print("Ocorreu um erro durante a leitura do arquivo:", e)
 
+def atualizar():
+    try:
+        with open("dados.txt", "r", encoding="utf-8") as arquivo:
+            receitas = arquivo.read().strip().split("\n\n")
 
+        nome_atualizar = input("Digite o nome da receita que deseja atualizar:\n").title().strip()
+        encontrou = False
+
+        for i, receita in enumerate(receitas):
+            if f"Nome: {nome_atualizar}" in receita.split("\n")[0]:
+                encontrou = True
+                print("Receita encontrada:")
+                print(receita)
+
+                novo_nome = input("Novo nome da receita (pressione Enter para manter o mesmo): ").title().strip()
+                novo_pais_origem = input("Novo país de origem (pressione Enter para manter o mesmo): ").capitalize().strip()
+                novos_ingredientes = input("Novos ingredientes (separados por vírgula, pressione Enter para manter os mesmos): ").strip()
+                novo_modo_preparo = input("Novo modo de preparo (pressione Enter para manter o mesmo): ").strip()
+
+                receita_atualizada = []
+
+                for linha in receita.split("\n"):
+                    if "Nome: " in linha and novo_nome:
+                        linha = f"Nome: {novo_nome}"
+                    elif "País de Origem: " in linha and novo_pais_origem:
+                        linha = f"País de Origem: {novo_pais_origem}"
+                    elif "Ingredientes: " in linha and novos_ingredientes:
+                        linha = f"Ingredientes: {novos_ingredientes}"
+                    elif "Modo de Preparo: " in linha and novo_modo_preparo:
+                        linha = f"Modo de Preparo: {novo_modo_preparo}"
+                    receita_atualizada.append(linha)
+
+                receitas[i] = "\n".join(receita_atualizada)
+                break
+
+        if encontrou:
+            with open("dados.txt", "w", encoding="utf-8") as arquivo:
+                arquivo.write("\n\n".join(receitas) + "\n")
+            print(f"A receita '{nome_atualizar}' foi atualizada com sucesso.")
+        else:
+            print(f"Nenhuma receita encontrada com o nome '{nome_atualizar}'.")
+
+    except FileNotFoundError:
+        print("O arquivo 'dados.txt' não foi encontrado.")
+    except Exception as e:
+        print("Ocorreu um erro durante a leitura do arquivo:", e)
 
 def excluir():
     try:
