@@ -156,51 +156,47 @@ def receita_aleatoria(): # Check
 
 
 
-def excluir(): # Falta Arrumar
-    with open('dados.txt', 'r+', encoding='utf-8') as arquivo:
-        linhas = arquivo.readlines()
+def excluir():
+    try:
+        with open("dados.txt", "r", encoding="utf-8") as arquivo:
+            linhas = arquivo.readlines()
+
         receitas = []
+        nova_receita = []
         for linha in linhas:
-            if 'Nome:' in linha:
-                nome = linha.split('Nome: ')[1].strip()
-            elif 'País de Origem:' in linha:
-                pais = linha.split('País de Origem: ')[1].strip()
-            elif 'Ingredientes:' in linha:
-                ingredientes = linha.split('Ingredientes: ')[1].strip().split(', ')
-            elif 'Modo de Preparo:' in linha:
-                modo_preparo = linha.split('Modo de Preparo: ')[1].strip()
-                receitas.append({'Nome': nome, 'País de Origem': pais, 'Ingredientes': ingredientes, 'Modo de Preparo': modo_preparo})
+            if linha.strip() == "" and nova_receita:
+                receitas.append("\n".join(nova_receita).strip())
+                nova_receita = []
+            else:
+                nova_receita.append(linha.strip())
+        
+        if nova_receita:
+            receitas.append("\n".join(nova_receita).strip())
 
-    while True:
-        print("\nReceitas Disponíveis:")
-        for i, receita in enumerate(receitas, 1):
-            print(f"[{i}] - {receita['Nome']}")
+        nome_excluir = input("Digite o nome da receita que deseja excluir:\n").title()
+        encontrou = False
+        novas_receitas = []
 
-        print("\nMenu de Exclusão:")
-        print("[1] - Excluir Receita")
-        print("[0] - Voltar ao Menu Principal")
-        opcao = input("=> ")
+        for receita in receitas:
+            if receita.startswith(f"Nome: {nome_excluir}"):
+                print("Receita encontrada e excluída:")
+                print(receita)
+                encontrou = True
+            else:
+                novas_receitas.append(receita)
 
-        if opcao == "0":
-            break
-        elif opcao == "1":
-            print("Digite o número da receita que deseja excluir:")
-            num_receita = input("=> ")
-            try:
-                num_receita = int(num_receita)
-                if 1 <= num_receita <= len(receitas):
-                    del linhas[4*(num_receita-1):4*num_receita]
-                    with open('dados.txt', 'w', encoding='utf-8') as arquivo:
-                        arquivo.writelines(linhas)
-                    print(f"Receita '{receitas[num_receita - 1]['Nome']}' excluída com sucesso.")
-                    # Atualiza a lista de receitas após a exclusão
-                    del receitas[num_receita - 1]
-                else:
-                    print("Número de receita inválido. Por favor, escolha um número válido.")
-            except ValueError:
-                print("Por favor, digite um número válido.")
+        if encontrou:
+            with open("dados.txt", "w", encoding="utf-8") as arquivo:
+                for receita in novas_receitas:
+                    arquivo.write(receita + "\n\n")
+            print(f"A receita '{nome_excluir}' foi excluída com sucesso.")
         else:
-            print("Opção Inválida. Por favor, escolha uma opção válida.")
+            print(f"Nenhuma receita encontrada com o nome '{nome_excluir}'.")
+
+    except FileNotFoundError:
+        print("O arquivo 'dados.txt' não foi encontrado.")
+    except Exception as e:
+        print("Ocorreu um erro durante a leitura do arquivo:", e)
 
 
 
