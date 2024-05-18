@@ -163,31 +163,35 @@ def atualizar():
         encontrou = False
 
         for i, receita in enumerate(receitas):
-            if f"Nome: {nome_atualizar}" in receita.split("\n")[0]:
-                encontrou = True
-                print("Receita encontrada:")
-                print(receita)
+            lines = receita.split("\n")
+            for line in lines:
+                if nome_atualizar.lower() in line.lower(): 
+                    encontrou = True
+                    print("Receita encontrada:")
+                    print(receita)
 
-                novo_nome = input("Novo nome da receita (pressione Enter para manter o mesmo): ").title().strip()
-                novo_pais_origem = input("Novo país de origem (pressione Enter para manter o mesmo): ").capitalize().strip()
-                novos_ingredientes = input("Novos ingredientes (separados por vírgula, pressione Enter para manter os mesmos): ").strip()
-                novo_modo_preparo = input("Novo modo de preparo (pressione Enter para manter o mesmo): ").strip()
+                    novo_nome = input("Novo nome da receita (pressione Enter para manter o mesmo): ").title().strip()
+                    novo_pais_origem = input("Novo país de origem (pressione Enter para manter o mesmo): ").capitalize().strip()
+                    novos_ingredientes = input("Novos ingredientes (separados por vírgula, pressione Enter para manter os mesmos): ").strip()
+                    novo_modo_preparo = input("Novo modo de preparo (pressione Enter para manter o mesmo): ").strip()
 
-                receita_atualizada = []
+                    receita_atualizada = []
 
-                for linha in receita.split("\n"):
-                    if "Nome: " in linha and novo_nome:
-                        linha = f"Nome: {novo_nome}"
-                    elif "País de Origem: " in linha and novo_pais_origem:
-                        linha = f"País de Origem: {novo_pais_origem}"
-                    elif "Ingredientes: " in linha and novos_ingredientes:
-                        linha = f"Ingredientes: {novos_ingredientes}"
-                    elif "Modo de Preparo: " in linha and novo_modo_preparo:
-                        linha = f"Modo de Preparo: {novo_modo_preparo}"
-                    receita_atualizada.append(linha)
+                    for linha in receita.split("\n"):
+                        if "Nome: " in linha and novo_nome:
+                            linha = f"Nome: {novo_nome}"
+                        elif "País de Origem: " in linha and novo_pais_origem:
+                            linha = f"País de Origem: {novo_pais_origem}"
+                        elif "Ingredientes: " in linha and novos_ingredientes:
+                            linha = f"Ingredientes: {novos_ingredientes}"
+                        elif "Modo de Preparo: " in linha and novo_modo_preparo:
+                            linha = f"Modo de Preparo: {novo_modo_preparo}"
+                        receita_atualizada.append(linha)
 
-                receitas[i] = "\n".join(receita_atualizada)
-                break
+                    receitas[i] = "\n".join(receita_atualizada)
+                    break 
+            if encontrou:
+                break  
 
         if encontrou:
             with open("dados.txt", "w", encoding="utf-8") as arquivo:
@@ -200,7 +204,7 @@ def atualizar():
         print("O arquivo 'dados.txt' não foi encontrado.")
     except Exception as e:
         print("Ocorreu um erro durante a leitura do arquivo:", e)
-
+        
 def excluir():
     try:
         with open("dados.txt", "r", encoding="utf-8") as arquivo:
