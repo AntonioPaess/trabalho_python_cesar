@@ -326,7 +326,52 @@ def visualizar_receita_por_nome(nome_busca): # Check
     except FileNotFoundError:
         print("Nenhuma receita cadastrada ainda.")
 
+def filtrar_igredientes():
+    try:
+        with open('dados.txt', 'r', encoding='utf-8') as arquivo:
+            linhas = arquivo.readlines()
+            receitas = []
+            nova_receita = None
 
+            for linha in linhas:
+                if "Nome: " in linha:
+                    if nova_receita:
+                        receitas.append(nova_receita)
+                    nova_receita = {"Nome": linha.strip()[6:]}
+                elif "País de Origem: " in linha:
+                    nova_receita["País de Origem"] = linha.strip()[16:]
+                elif "Ingredientes: " in linha:
+                    nova_receita["Ingredientes"] = linha.strip()[14:].split(', ')
+                elif "Modo de Preparo: " in linha:
+                    nova_receita["Modo de Preparo"] = linha.strip()[17:]
+
+            if nova_receita:
+                receitas.append(nova_receita)
+
+        ingredientes_input = input("Digite os ingredientes para filtrar as receitas (separados por vírgula):\n").lower().split(', ')
+        
+        receitas_filtradas = []
+        for receita in receitas:
+            if "Ingredientes" in receita:
+                ingredientes_receita = [ingrediente.lower().strip() for ingrediente in receita["Ingredientes"]]
+                if all(ingrediente in ingredientes_receita for ingrediente in ingredientes_input):
+                    receitas_filtradas.append(receita)
+
+        if receitas_filtradas:
+            print("Receitas que contêm os ingredientes especificados:")
+            for receita in receitas_filtradas:
+                print(f"Nome: {receita['Nome']}")
+                print(f"País de Origem: {receita['País de Origem']}")
+                print(f"Ingredientes: {', '.join(receita['Ingredientes'])}")
+                print(f"Modo de Preparo: {receita['Modo de Preparo']}")
+                print("-" * 30)
+        else:
+            print("Nenhuma receita encontrada com os ingredientes especificados.")
+
+    except FileNotFoundError:
+        print("O arquivo 'dados.txt' não foi encontrado.")
+    except Exception as e:
+        print(f"Ocorreu um erro durante a leitura do arquivo: {e}")
 
 
 menu()
