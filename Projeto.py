@@ -41,7 +41,7 @@ def menu():
         elif op == "7":
             receita_aleatoria()
         elif op == "8":
-            pass
+            filtrar_igredientes()
         else:
             if op not in opcoes:
                 print("Opção Inválida")
