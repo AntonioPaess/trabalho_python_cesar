@@ -1,14 +1,14 @@
-# Trabalho da faculdade Cesar School
+<h1 align="center">CRUD em python</h1>
+
+<div align="center" >
+<img src="https://github.com/AntonioPaess/trabalho_python_cesar/assets/108696459/00edc9ba-334b-4011-a417-5fdaf124a3fd" alt="Imagem Arredondada" style="width: 400px;  border-radius: 50%; object-fit: cover;">
+</div>
 
 
-## Descrição do Problema:
-    Rafael é um entusiasta da culinária e adora experimentar novas receitas de
-    diversos países. No entanto, ele enfrenta dificuldades em organizar suas receitas
-    favoritas e muitas vezes acaba perdendo as que mais gostou. Como um programador
-    dedicado, você decidiu ajudá-lo a criar um sistema de Gerenciamento de Receitas
-    para que Rafael possa manter o controle de suas descobertas gastronômicas.
+# 📢 Descrição do Problema:
+Rafael é um entusiasta da culinária e adora experimentar novas receitas de diversos países. No entanto, ele enfrenta dificuldades em organizar suas receitas favoritas e muitas vezes acaba perdendo as que mais gostou. Como um programador dedicado, você decidiu ajudá-lo a criar um sistema de Gerenciamento de Receitas para que Rafael possa manter o controle de suas descobertas gastronômicas.
 
-## Requisitos funcionais:
+# 💻 Requisitos funcionais:
 1. Cadastro de Receitas: O sistema deve permitir que Rafael cadastre informações
 sobre cada receita, incluindo nome, país de origem, ingredientes e modo de preparo.
 2. CRUD de Receitas: Rafael deve poder adicionar, visualizar, atualizar e excluir
@@ -26,59 +26,78 @@ experimentar novos pratos.
 7. Ter pelo menos uma outra funcionalidade a mais que não está descrita aqui neste
 documento. Sejam criativos e divirtam-se!
 
-## Requisitos não funcionais:
-1. Deve ser feito em Python sem o uso de bibliotecas adicionais.
-a. Utilizar a linha de comando para entrada e saída;
-b. Exceções de bibliotecas:
-■ os -> os.system("clear") ou “cls”.
+## 📋 Projeto
+Este projeto é um gerenciador de receitas que permite cadastrar, visualizar, atualizar, excluir e filtrar receitas por país de origem. Ele também oferece a funcionalidade de listar receitas favoritas e selecionar uma receita aleatória.
+# Funcionalidades
+## Menu Principal
+- O menu principal apresenta as seguintes opções:
 
-2. Os dados devem ser salvos em um arquivo no formato .csv ou .txt;
-a. O trabalho deve ser feito em grupo.
-b. Trabalhos que não forem feitos em grupo perderão 50% da nota.
+- Cadastrar Receita: Permite adicionar uma nova receita ao arquivo dados.txt.
+- Visualizar Receitas: Permite visualizar uma receita específica pelo nome.
+- Atualizar Receita: Permite atualizar os detalhes de uma receita existente.
+- Excluir Receita: Permite excluir uma receita pelo nome.
+- Filtrar por país: Permite filtrar receitas pelo país de origem.
+- Lista de Favoritos: Permite adicionar receitas à lista de favoritos e exibi-las.
+- Receita Aleatória: Seleciona e exibe uma receita aleatória do arquivo.
+- Novidade: Futuras implementações.
+- Sair: Sai do programa.
+## Funcionalidades Detalhadas
+Cadastrar Receita
+- Cadastra uma nova receita solicitando ao usuário o nome, país de origem, ingredientes e modo de preparo. Os dados são salvos no arquivo dados.txt.
 
-### Ciência da Computação
-#### Fundamentos de Programação 2024.1
-##### Professores: Carol Melo e Victor Cavalcanti
+Visualizar Receitas
+- Solicita o nome da receita que o usuário deseja visualizar e exibe os detalhes se a receita for encontrada.
 
-3. O código deve estar organizado, portanto, deve conter:
-a. Funções para dividir o código de forma lógica e evitar repetições;
-b. Tratamento de exceções, para garantir que seu código esteja pronto
-para tratar casos inesperados.
-c. Legibilidade do código, incluindo nomeação de variáveis e funções.
+Atualizar Receita
+- Permite ao usuário atualizar os detalhes de uma receita existente. Solicita o nome da receita a ser atualizada e permite modificar o nome, país de origem, ingredientes e modo de preparo.
 
-4. Deve ser feito um manual do usuário, explicando como utilizar a ferramenta e
-restrições gerais que a aplicação tenha.
-a. Fiquem à vontade para escolher como será feito esse manual. Pode
-ser um pdf, site, vídeo, carta...
+Excluir Receita
+- Solicita o nome da receita que o usuário deseja excluir e remove a receita do arquivo se encontrada.
 
-5. Não será aceito entregas atrasadas.
+Filtrar por país
+- Permite ao usuário listar todas as receitas de um país específico.
 
-6. Apresentação:
-a. A equipe deve apresentar o projeto feito para os professores.
-b. Todos envolvidos da equipe devem explicar alguma parte, e perguntas
-direcionadas serão feitas durante a apresentação.
-c. O manual deve conter o fluxograma do projeto.
+Lista de Favoritos
+- Gerencia uma lista de receitas favoritas. O usuário pode adicionar receitas à lista de favoritos e visualizar as receitas favoritas.
 
-7. A entrega será em uma atividade do classroom
-a. O que deve ser entregue:
-■ Código da aplicação.
-■ Manual do usuário.
+Receita Aleatória
+- Seleciona e exibe uma receita aleatória do arquivo dados.txt.
 
-## Critérios de avaliação:
+# 🎲 Arquivo de Dados
+Todas as receitas são armazenadas no arquivo dados.txt com o seguinte formato:
+Nome: [Nome da Receita]
+País de Origem: [País de Origem]
+Ingredientes: [Lista de Ingredientes]
+Modo de Preparo: [Modo de Preparo]
 
-### ● Apresentação (50 pontos - nota individual):
+# Estrutura do Código
+Funções
+menu(): Exibe o menu principal e gerencia a navegação entre as opções.
+cadastro(): Cadastra uma nova receita.
+visualizar_receita_por_nome(nome_busca): Visualiza uma receita pelo nome.
+atualizar(): Atualiza uma receita existente.
+excluir(): Exclui uma receita pelo nome.
+filtrar(): Filtra receitas por país de origem.
+favoritos(): Gerencia a lista de receitas favoritas.
+receita_aleatoria(): Seleciona uma receita aleatória do arquivo.
 
-○ Participação durante a apresentação do projeto;
+# Exemplo de Uso
+Para iniciar o programa, basta chamar a função menu():
 
-○ Perguntas durante a apresentação.
+## 📝 Fluxograma
 
-### ● Código (50 pontos - nota por grupo):
+## ⚙️ Requisitos
+Python 3.6 ou superior.
 
-○ Legibilidade e Organização do código;
+## 🙋‍♂️ Criado por:
+- [Antonios Paes](https://github.com/AntonioPaess)
+- [Galileu Moraes](https://github.com/GalileuCMMoares)
+- [Matheus Lustosa](https://github.com/MatheusLustosa)
+- [Thiago Alves](https://github.com/ThAlvesM)
 
-○ Tratamento de erros;
 
-○ Utilização de Arquivos;
 
-○ Apresentação da ferramenta e manual do usuário;
-○ Funcionalidade extra.
+
+
+
+
