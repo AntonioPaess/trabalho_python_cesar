@@ -1,4 +1,6 @@
 import random
+import os
+os.system('cls')
 
 def menu():
     tam = 30
@@ -28,6 +30,7 @@ def menu():
         elif op == "1":
             cadastro()
         elif op == "2":
+            os.system('cls')
             receita = input("Digite o nome da receita que deseja visualizar:\n").capitalize()
             visualizar_receita_por_nome(receita)
         elif op == "3":
@@ -51,6 +54,7 @@ def menu():
 
 
 def favoritos(): # Check
+    os.system('cls')
     favoritas = []
 
     with open('dados.txt', 'r', encoding='utf-8') as arquivo:
@@ -83,7 +87,9 @@ def favoritos(): # Check
         print("[0] - Voltar ao Menu Principal")
         opcao = input("=> ")
 
+        
         if opcao == "0":
+            os.system('cls')
             break
         elif opcao == "1":
             print("Digite o número da receita que deseja adicionar aos favoritos:")
@@ -93,24 +99,31 @@ def favoritos(): # Check
                 if 1 <= num_receita <= len(receitas):
                     nome_receita = receitas[num_receita - 1]['Nome']
                     favoritas.append(nome_receita)
+                    os.system('cls')
                     print(f"Receita '{nome_receita}' adicionada aos favoritos.")
                 else:
+                    os.system('cls')
                     print("Número de receita inválido. Por favor, escolha um número válido.")
             except ValueError:
+                os.system('cls')
                 print("Por favor, digite um número válido.")
         elif opcao == "2":
             if not favoritas:
+                os.system('cls')
                 print("Nenhuma receita favorita adicionada ainda.")
             else:
+                os.system('cls')
                 print("Receitas Favoritas:")
                 for receita in favoritas:
                     print("-", receita)
         else:
+            os.system('cls')
             print("Opção Inválida. Por favor, escolha uma opção válida.")
 
 
 
 def receita_aleatoria(): # Check
+    os.system('cls')
     try:
         with open('dados.txt', 'r', encoding='utf-8') as arquivo:
             linhas = arquivo.readlines()
@@ -155,6 +168,7 @@ def receita_aleatoria(): # Check
         print("Ocorreu um erro durante a leitura do arquivo:", e)
 
 def atualizar():
+    os.system('cls')
     try:
         with open("dados.txt", "r", encoding="utf-8") as arquivo:
             receitas = arquivo.read().strip().split("\n\n")
@@ -192,7 +206,8 @@ def atualizar():
                     break 
             if encontrou:
                 break  
-
+        
+        os.system('cls')
         if encontrou:
             with open("dados.txt", "w", encoding="utf-8") as arquivo:
                 arquivo.write("\n\n".join(receitas) + "\n")
@@ -206,6 +221,7 @@ def atualizar():
         print("Ocorreu um erro durante a leitura do arquivo:", e)
         
 def excluir():
+    os.system('cls')
     try:
         with open("dados.txt", "r", encoding="utf-8") as arquivo:
             linhas = arquivo.readlines()
@@ -234,6 +250,7 @@ def excluir():
             else:
                 novas_receitas.append(receita)
 
+        os.system('cls')
         if encontrou:
             with open("dados.txt", "w", encoding="utf-8") as arquivo:
                 for receita in novas_receitas:
@@ -249,7 +266,8 @@ def excluir():
 
 
 
-def filtrar(): 
+def filtrar():
+    os.system('cls') 
     try:
         with open('dados.txt', 'r', encoding='utf-8') as arquivo:
             linhas = arquivo.readlines()
@@ -270,7 +288,8 @@ def filtrar():
         pais = input("Digite o país para filtrar as receitas:\n").capitalize()
 
         receitas_filtradas = [r for r in receitas if r.get("País de Origem", "").lower() == pais.lower()]
-
+        
+        os.system('cls')
         if receitas_filtradas:
             print(f"Receitas do país '{pais}':")
             for receita in receitas_filtradas:
@@ -287,6 +306,7 @@ def filtrar():
 
 
 def cadastro(): # Check
+    os.system('cls')
     nome = input("Nome da receita: ").title()
     pais_origem = input("País de origem: ").capitalize()
     ingredientes = input("Ingredientes (separados por vírgula): ").split(',')
@@ -303,12 +323,14 @@ def cadastro(): # Check
         arquivo.write("\n")
         for key, value in receita.items():
             arquivo.write(f"{key}: {value}\n")
-
+    
+    os.system('cls')
     print("\nReceita cadastrada com sucesso!\n")
 
 
 
 def visualizar_receita_por_nome(nome_busca): # Check
+    os.system('cls')
     try:
         with open("dados.txt", "r", encoding="utf-8") as arquivo:
             receitas = arquivo.read().split("\n\n")
@@ -327,6 +349,7 @@ def visualizar_receita_por_nome(nome_busca): # Check
         print("Nenhuma receita cadastrada ainda.")
 
 def filtrar_igredientes():
+    os.system('cls')
     try:
         with open('dados.txt', 'r', encoding='utf-8') as arquivo:
             linhas = arquivo.readlines()
@@ -339,12 +362,12 @@ def filtrar_igredientes():
                         receitas.append(nova_receita)
                     nova_receita = {"Nome": linha.strip()[6:]}
                 elif "Ingredientes: " in linha:
-                    nova_receita["Ingredientes"] = linha.strip()[14:].split(', ')
+                    nova_receita["Ingredientes"] = linha.strip()[14:].split()
 
             if nova_receita:
                 receitas.append(nova_receita)
-
-        ingredientes_input = input("Digite os ingredientes para filtrar as receitas (separados por vírgula):\n").lower().split(', ')
+        
+        ingredientes_input = input("Digite os ingredientes para filtrar as receitas:\n").lower().split()
         
         receitas_filtradas = []
         for receita in receitas:
@@ -352,11 +375,12 @@ def filtrar_igredientes():
                 ingredientes_receita = [ingrediente.lower().strip() for ingrediente in receita["Ingredientes"]]
                 if all(ingrediente in ingredientes_receita for ingrediente in ingredientes_input):
                     receitas_filtradas.append(receita)
-
+        
+        os.system('cls')    
         if receitas_filtradas:
             print("Receitas que contêm os ingredientes especificados:")
             for receita in receitas_filtradas:
-                print(f"Nome: {receita['Nome']}")
+                print(f"{receita['Nome']}")
 
         else:
             print("Nenhuma receita encontrada com os ingredientes especificados.")
@@ -365,6 +389,5 @@ def filtrar_igredientes():
         print("O arquivo 'dados.txt' não foi encontrado.")
     except Exception as e:
         print(f"Ocorreu um erro durante a leitura do arquivo: {e}")
-
 
 menu()
