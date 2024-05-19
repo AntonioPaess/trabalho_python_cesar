@@ -10,7 +10,7 @@ def menu():
         "[5]" : "Filtrar por país", # Thiago 
         "[6]" : "Lista de Favoritos", # Chomp
         "[7]" : "Receita Aleatória", # Chomp
-        "[8]" : "Novidade", # Thiago
+        "[8]" : "Filtrar por igrediente", # Thiago
         "[0]" : "Sair"
     }
     while True:
@@ -338,12 +338,8 @@ def filtrar_igredientes():
                     if nova_receita:
                         receitas.append(nova_receita)
                     nova_receita = {"Nome": linha.strip()[6:]}
-                elif "País de Origem: " in linha:
-                    nova_receita["País de Origem"] = linha.strip()[16:]
                 elif "Ingredientes: " in linha:
                     nova_receita["Ingredientes"] = linha.strip()[14:].split(', ')
-                elif "Modo de Preparo: " in linha:
-                    nova_receita["Modo de Preparo"] = linha.strip()[17:]
 
             if nova_receita:
                 receitas.append(nova_receita)
@@ -361,10 +357,7 @@ def filtrar_igredientes():
             print("Receitas que contêm os ingredientes especificados:")
             for receita in receitas_filtradas:
                 print(f"Nome: {receita['Nome']}")
-                print(f"País de Origem: {receita['País de Origem']}")
-                print(f"Ingredientes: {', '.join(receita['Ingredientes'])}")
-                print(f"Modo de Preparo: {receita['Modo de Preparo']}")
-                print("-" * 30)
+
         else:
             print("Nenhuma receita encontrada com os ingredientes especificados.")
 
