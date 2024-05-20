@@ -40,6 +40,7 @@ Este projeto é um gerenciador de receitas que permite cadastrar, visualizar, at
 - Lista de Favoritos: Permite adicionar receitas à lista de favoritos e exibi-las.
 - Receita Aleatória: Seleciona e exibe uma receita aleatória do arquivo.
 - Filtrar por Receita: Permite filtrar receitas pelos igredientes.
+- Filtrar por Ingrediente: Permite filtrar receitas pelos igredientes.
 - Sair: Sai do programa.
 ## Funcionalidades Detalhadas
 Cadastrar Receita
