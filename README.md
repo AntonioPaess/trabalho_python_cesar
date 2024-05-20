@@ -76,15 +76,15 @@ Modo de Preparo: [Modo de Preparo]
 
 # Estrutura do Código
 Funções
-menu(): Exibe o menu principal e gerencia a navegação entre as opções.
-cadastro(): Cadastra uma nova receita.
-visualizar_receita_por_nome(nome_busca): Visualiza uma receita pelo nome.
-atualizar(): Atualiza uma receita existente.
-excluir(): Exclui uma receita pelo nome.
-filtrar(): Filtra receitas por país de origem.
-favoritos(): Gerencia a lista de receitas favoritas.
-receita_aleatoria(): Seleciona uma receita aleatória do arquivo.
-filtrar_igredientes(): Filtra receitas por igredientes.
+-menu(): Exibe o menu principal e gerencia a navegação entre as opções.
+-cadastro(): Cadastra uma nova receita.
+-visualizar_receita_por_nome(nome_busca): Visualiza uma receita pelo nome.
+-atualizar(): Atualiza uma receita existente.
+-excluir(): Exclui uma receita pelo nome.
+-filtrar(): Filtra receitas por país de origem.
+-favoritos(): Gerencia a lista de receitas favoritas.
+-receita_aleatoria(): Seleciona uma receita aleatória do arquivo.
+-filtrar_igredientes(): Filtra receitas por igredientes.
 
 # Exemplo de Uso
 Para iniciar o programa, basta chamar a função menu():
