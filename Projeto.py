@@ -5,7 +5,7 @@ os.system('cls')
 def menu():
     tam = 30
     opcoes = {
-        "[1]" : "Cadastrar Receita", # Matheus
+        
         "[2]" : "Visualizar Receitas", # Matheus
         "[3]" : "Atualizar Receita", # Galileu
         "[4]" : "Excluir Receita", # Galileu
