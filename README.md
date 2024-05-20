@@ -1,7 +1,7 @@
 <h1 align="center">CRUD em python</h1>
 
 <div align="center" >
-<img src="https://github.com/AntonioPaess/trabalho_python_cesar/assets/108696459/00edc9ba-334b-4011-a417-5fdaf124a3fd" alt="Imagem Arredondada" style="width: 400px;  border-radius: 50%; object-fit: cover;">
+<img src="https://github.com/AntonioPaess/trabalho_python_cesar/assets/108696459/00edc9ba-334b-4011-a417-5fdaf124a3fd" alt="Imagem Arredondada" style="width: 100%;  border-radius: 50%; object-fit: cover;">
 </div>
 
 
@@ -89,6 +89,9 @@ filtrar_igredientes(): Filtra receitas por igredientes.
 Para iniciar o programa, basta chamar a função menu():
 
 ## 📝 Fluxograma
+<div align="center" >
+<img src="https://github.com/AntonioPaess/trabalho_python_cesar/assets/108696459/fe2c27ca-9e8b-4af6-ab7f-2c29ffaaa634" alt="Imagem Arredondada" style="width: 900px;">
+</div>
 
 ## ⚙️ Requisitos
 Python 3.6 ou superior.
