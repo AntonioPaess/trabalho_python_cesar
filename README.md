@@ -39,7 +39,7 @@ Este projeto é um gerenciador de receitas que permite cadastrar, visualizar, at
 - Filtrar por país: Permite filtrar receitas pelo país de origem.
 - Lista de Favoritos: Permite adicionar receitas à lista de favoritos e exibi-las.
 - Receita Aleatória: Seleciona e exibe uma receita aleatória do arquivo.
-- Novidade: Futuras implementações.
+- Filtrar por Receita: Permite filtrar receitas pelos igredientes.
 - Sair: Sai do programa.
 ## Funcionalidades Detalhadas
 Cadastrar Receita
@@ -54,7 +54,7 @@ Atualizar Receita
 Excluir Receita
 - Solicita o nome da receita que o usuário deseja excluir e remove a receita do arquivo se encontrada.
 
-Filtrar por país
+Filtrar por País
 - Permite ao usuário listar todas as receitas de um país específico.
 
 Lista de Favoritos
@@ -62,6 +62,9 @@ Lista de Favoritos
 
 Receita Aleatória
 - Seleciona e exibe uma receita aleatória do arquivo dados.txt.
+
+Filtrar por Igredientes
+- Permite ao usuário listar todas as receitas que contem um ou mais igredientes específicos.
 
 # 🎲 Arquivo de Dados
 Todas as receitas são armazenadas no arquivo dados.txt com o seguinte formato:
@@ -80,6 +83,7 @@ excluir(): Exclui uma receita pelo nome.
 filtrar(): Filtra receitas por país de origem.
 favoritos(): Gerencia a lista de receitas favoritas.
 receita_aleatoria(): Seleciona uma receita aleatória do arquivo.
+filtrar_igredientes(): Filtra receitas por igredientes.
 
 # Exemplo de Uso
 Para iniciar o programa, basta chamar a função menu():
