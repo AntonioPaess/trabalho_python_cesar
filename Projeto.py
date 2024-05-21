@@ -306,49 +306,30 @@ def favoritos():
 
 
 
-def receita_aleatoria():
+def receita_aleatoria(): # Check
     os.system('cls')
     try:
-        with open('dados.txt', 'r', encoding='utf-8') as arquivo:
-            linhas = arquivo.readlines()
-            receitas = []
-            nova_receita = False
-            ingredientes = ""
-            modo_preparo = ""
-            for linha in linhas:
-                if nova_receita:
-                    if 'Modo de Preparo:' in linha:
-                        nova_receita = False
-                    else:
-                        modo_preparo += linha.strip() + '\n'
-                elif 'Nome:' in linha:
-                    if ingredientes != "":
-                        receitas.append((nome, pais_origem, ingredientes, modo_preparo))
-                        ingredientes = ""
-                        modo_preparo = ""
-                    nome = linha.strip().replace('Nome: ', '')
-                elif 'País de Origem:' in linha:
-                    pais_origem = linha.strip().replace('País de Origem: ', '')
-                elif 'Ingredientes:' in linha:
-                    ingredientes = linha.strip().replace('Ingredientes: ', '')
-                    nova_receita = True
+        with open("dados.txt", "r", encoding="utf-8") as arquivo:
+            receitas = arquivo.read().split("\n\n")
+        
+        if not receitas:
+            print("Não há receitas disponíveis.")
+            return
 
-            if ingredientes != "":
-                receitas.append((nome, pais_origem, ingredientes, modo_preparo))
+        receita_mod = random.choice(receitas)
 
-            if not receitas:
-                print("Não há receitas disponíveis.")
-                return
+        encontrou = False
+        for receita in receitas:
+            if receita == receita_mod:
+                print("Receita aleatória:")
+                print(receita_mod)
+                encontrou = True
+                break
 
-            receita_escolhida = random.choice(receitas)
-            nome, pais_origem, ingredientes, modo_preparo = receita_escolhida
-
-            print("Nome:", nome)
-            print(f"País de Origem: {pais_origem}")
-            print(f"Ingredientes:{ingredientes}")
-            print(f"Modo de Preparo:{modo_preparo}")
+        if not encontrou:
+            print("Nenhuma receita encontrada.")
     except FileNotFoundError:
-        print("O arquivo 'dados.txt' não foi encontrado.")
+        print("Nenhuma receita cadastrada ainda.")
     except Exception as e:
         print("Ocorreu um erro durante a leitura do arquivo:", e)
 
