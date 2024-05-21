@@ -182,7 +182,6 @@ def excluir():
             else:
                 novas_receitas.append(receita)
 
-        os.system('cls')
         if encontrou:
             with open("dados.txt", "w", encoding="utf-8") as arquivo:
                 for receita in novas_receitas:
