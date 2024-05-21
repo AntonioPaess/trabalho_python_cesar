@@ -12,7 +12,7 @@ def menu():
         "[5]" : "Filtrar por país", # Thiago 
         "[6]" : "Lista de Favoritos", # Chomp
         "[7]" : "Receita Aleatória", # Chomp
-        "[8]" : "Filtrar por igrediente", # Thiago
+        "[8]" : "Filtrar por ingredientes", # Thiago
         "[0]" : "Sair"
     }
     while True:
@@ -44,7 +44,7 @@ def menu():
         elif op == "7":
             receita_aleatoria()
         elif op == "8":
-            filtrar_igredientes()
+            filtrar_ingredientes()
         else:
             if op not in opcoes:
                 print("Opção Inválida")
@@ -348,7 +348,7 @@ def visualizar_receita_por_nome(nome_busca): # Check
     except FileNotFoundError:
         print("Nenhuma receita cadastrada ainda.")
 
-def filtrar_igredientes():
+def filtrar_ingredientes():
     os.system('cls')
     try:
         with open('dados.txt', 'r', encoding='utf-8') as arquivo:
@@ -362,17 +362,18 @@ def filtrar_igredientes():
                         receitas.append(nova_receita)
                     nova_receita = {"Nome": linha.strip()[6:]}
                 elif "Ingredientes: " in linha:
-                    nova_receita["Ingredientes"] = linha.strip()[14:].split()
+                    ingredientes = linha.strip()[14:].strip("[]").replace("'", "").split(", ")
+                    nova_receita["Ingredientes"] = [ingrediente.lower() for ingrediente in ingredientes]
 
             if nova_receita:
                 receitas.append(nova_receita)
         
-        ingredientes_input = input("Digite os ingredientes para filtrar as receitas:\n").lower().split()
+        ingredientes_input = input("Digite os ingredientes para filtrar as receitas (separados por vírgula):\n").lower().split(', ')
         
         receitas_filtradas = []
         for receita in receitas:
             if "Ingredientes" in receita:
-                ingredientes_receita = [ingrediente.lower().strip() for ingrediente in receita["Ingredientes"]]
+                ingredientes_receita = receita["Ingredientes"]
                 if all(ingrediente in ingredientes_receita for ingrediente in ingredientes_input):
                     receitas_filtradas.append(receita)
         
@@ -381,7 +382,6 @@ def filtrar_igredientes():
             print("Receitas que contêm os ingredientes especificados:")
             for receita in receitas_filtradas:
                 print(f"{receita['Nome']}")
-
         else:
             print("Nenhuma receita encontrada com os ingredientes especificados.")
 
